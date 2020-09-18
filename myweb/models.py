@@ -1,17 +1,24 @@
 from django.db import models
 
+class Story(models.Model):
+    StoryID = models.IntegerField(primary_key= True, unique=True, auto_created=True)
+    StoryName = models.CharField(max_length=250)
+    Story_Article = models.TextField(max_length=999999)
 
-class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+class GroupManager(models.Model):
+    GroupID = models.IntegerField(primary_key= True, unique=True, auto_created=True)
+    Username = models.CharField(max_length=250)
+    Password = models.CharField(max_length=250)
+    Role = models.CharField(max_length=50)
 
-    def __str__(self):
-        return f'{self.question_text}'
+class Writer(models.Model):
+    GID = models.ForeignKey(GroupManager, on_delete=models.CASCADE, default=0)
+    WriterID = models.IntegerField(primary_key= True, unique=True, auto_created=True)
+    Name = models.CharField(max_length = 250)
+    BIO = models.CharField(max_length = 250)
 
-class Choice(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    choice_text = models.CharField(max_length=200)
-    votes = models.IntegerField(default=0)
-
-    def __str__(self):
-        return f'{self.question.question_text} -> {self.choice_text} [{self.votes}]'
+class StoryElements(models.Model):
+    SID = models.ForeignKey(Story, on_delete=models.CASCADE)
+    WID = models.ForeignKey(Writer, on_delete=models.CASCADE)
+    Story_Type = models.CharField(max_length=150)
+    Story_category = models.CharField(max_length=150)
