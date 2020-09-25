@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Story, StoryElements, GroupManager, Writer
+from .models import *
 
 admin.site.register(Story)
 admin.site.register(StoryElements)

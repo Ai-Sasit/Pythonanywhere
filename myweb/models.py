@@ -7,18 +7,17 @@ class Story(models.Model):
 
 class GroupManager(models.Model):
     GroupID = models.IntegerField(primary_key= True, unique=True, auto_created=True)
-    Username = models.CharField(max_length=250)
-    Password = models.CharField(max_length=250)
-    Role = models.CharField(max_length=50)
+    Phone = models.CharField(max_length=20, default=None)
+    Nickname = models.CharField(max_length=20)
 
 class Writer(models.Model):
-    GID = models.ForeignKey(GroupManager, on_delete=models.CASCADE, default=0)
     WriterID = models.IntegerField(primary_key= True, unique=True, auto_created=True)
+    GID = models.ForeignKey(GroupManager, to_field='GroupID', on_delete=models.CASCADE)
     Name = models.CharField(max_length = 250)
     BIO = models.CharField(max_length = 250)
 
 class StoryElements(models.Model):
-    SID = models.ForeignKey(Story, on_delete=models.CASCADE)
-    WID = models.ForeignKey(Writer, on_delete=models.CASCADE)
+    SID = models.ForeignKey(Story, to_field='StoryID', on_delete=models.CASCADE)
+    WID = models.ForeignKey(Writer, to_field='WriterID', on_delete=models.CASCADE)
     Story_Type = models.CharField(max_length=150)
-    Story_category = models.CharField(max_length=150)
+    Date_Created = models.CharField(max_length=150)
