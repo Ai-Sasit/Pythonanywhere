@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>undefined</title>
+  <title>Diary Log</title>
   <meta name="generator" content="Google Web Designer 9.0.1.0902">
   <style type="text/css" id="gwd-text-style">
     p {
@@ -73,10 +73,12 @@
       background-image: none;
       box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 8px 0px, rgba(0, 0, 0, 0.19) 0px 6px 20px 0px;
       width: 70%;
-      height: 100%;
       background-color: rgb(253, 186, 253);
       top: 0.01%;
       left: 15.22%;
+      min-height: 100%;
+      height: auto;
+      padding-bottom: 110px;
     }
     .gwd-button-gw8m {
       position: absolute;
@@ -256,7 +258,7 @@
       text-shadow: rgba(0, 0, 0, 0.5) 2px 2px 4px;
     }
     tr {
-      background-color: rgb(250, 222, 250);
+      background-color: rgb(255, 255, 255);
       border-right: hidden;
       font-size: 18px;
       font-family: Sarabun;
@@ -369,10 +371,16 @@
   <div class="gwd-div-cixi" id="Page_Center">
     <table class="gwd-table-iltl">
       <tbody class="gwd-tbody-1dcg gwd-tbody-1c0o">
+      <tr style="background-color: rgba(250, 222, 250);">
+          <td>ชื่อเรื่อง</td>
+          <td>ผู้เขียน</td>
+          <td>เวลา</td>
+      </tr>
       {%for item in Story%}
-        <tr>
-          <td>{{item.Username}}</td>
-          <td>{{item.Nickname}}</td>
+        <tr style="cursor: pointer;" onclick="document.location='Reading/{{item.SID}}'">
+          <td>{{item.StoryName}}</td>
+          <td>{{item.WID}}</td>
+          <td>{{item.AutoDate}}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -386,24 +394,22 @@
     <button id="button_4" class="gwd-button-1v37 gwd-button-gw8m gwd-button-13sd gwd-button-xh8b">🔎</button>
     <span class="gwd-span-1n9a">Diary Log<br class="gwd-br-1i0k"></span>
   </div>
-  <button id="button_3" class="gwd-button-gw8m gwd-button-13sd gwd-button-xh8b gwd-button-1any">Write</button>
+  <button id="button_3" class="gwd-button-gw8m gwd-button-13sd gwd-button-xh8b gwd-button-1any" onclick="document.location='myweb/Writing'">Write</button>
   <div class="dropdown">
     <button id="button_7" class="gwd-button-1hin" onclick="myFunction()">MENU</button>
     <div id="myDropdown" class="dropdown-content">
       <a href="#">Emotion</a>
       <a href="#">Short Story</a>
-      <a href="#">Knowledge</a>
       <a href="#">Experience</a>
       <a href="#">Love</a>
       <a href="#">Comedy</a>
-      <a href="#">Life Style</a>
-      <a href="#">Inspiration</a>
     </div>
   </div>
   <div class="dropdown1 gwd-div-bez5">
     <button id="button_8" class="gwd-button-nsa6" onclick="myFunction1()">Profile</button>
     <div id="myDropdown_1" class="dropdown-content1">
-      <a href="#">Profile Settings</a>
+      <a href="myweb/Editpro">Profile Settings</a>
+      <a href="myweb/AuthorEdit">Author Settings</a>
       <a href="myweb/logoutX">Log Out</a>
     </div>
   </div>
@@ -438,6 +444,11 @@
       document.getElementById("myDropdown_1").classList.toggle("show1");
     }
   </script>
+  <script>
+   if({{status}}) {
+     alert("{{Fail}}")
+   }
+   </script>
 </body>
 
 </html>
