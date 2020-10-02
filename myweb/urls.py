@@ -23,4 +23,8 @@ urlpatterns = [
     path('Writing', views.Writing),
     path('WritingX', views.WritingX),
 
+    path('Type/<str:type_select>', views.Type),
+    path('Reading/<int:index>', views.Reading),
+    path('Searching', views.Search),
+
 ]

@@ -296,7 +296,7 @@
       box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 20px 0px, rgba(0, 0, 0, 0.2) 0px 0px 20px 0px;
     }
     .gwd-table-iltl {
-      border-collapse:separate; 
+      border-collapse:separate;
       border-spacing:0 18px;
       transform-origin: 50% 50% 0px;
       background-color: rgb(250, 222, 250,0);
@@ -304,7 +304,7 @@
       height: 15%;
       top: 94px;
       width: 82.28%;
-      left: 79px; 
+      left: 79px;
       padding-bottom: 53.66px;
     }
     #footer{
@@ -329,7 +329,7 @@
           <td>เวลา</td>
       </tr>
       {%for item in Story%}
-        <tr style="cursor: pointer;" onclick="document.location='Reading/{{item.SID}}'">
+        <tr style="cursor: pointer;" onclick="document.location='myweb/Reading/{{item.SID}}'">
           <td>{{item.StoryName}}</td>
           <td>{{item.WID}}</td>
           <td>{{item.AutoDate}}</td>
@@ -342,20 +342,23 @@
     </div>
   </div>
   <div class="gwd-div-1u2g">
-    <input type="text" id="text_1" class="gwd-input-1jae" placeholder="อ่านอะไรดี?" onfocus="this.value=''">
+  <form action="myweb/Searching" method="post">{% csrf_token %}
+    <input type="text" id="text_1" name ="Key" class="gwd-input-1jae" placeholder="อ่านอะไรดี?" onfocus="this.value=''">
     <button id="button_4" class="gwd-button-1v37 gwd-button-gw8m gwd-button-13sd gwd-button-xh8b">🔎</button>
     <span class="gwd-span-1n9a">Diary Log<br class="gwd-br-1i0k"></span>
+    </form>
   </div>
   <button id="button_2" class="gwd-button-gw8m gwd-button-13sd gwd-button-1ewb" onclick="document.location='myweb/register'">Sign in</button>
   <button id="button_3" class="gwd-button-gw8m gwd-button-13sd gwd-button-xh8b gwd-button-1any" onclick="document.location='myweb/login'">Login</button>
   <div class="dropdown">
     <button id="button_7" class="gwd-button-1hin" onclick="myFunction()">MENU</button>
     <div id="myDropdown" class="dropdown-content">
-      <a href="#">Emotion</a>
-      <a href="#">Short Story</a>
-      <a href="#">Experience</a>
-      <a href="#">Love</a>
-      <a href="#">Comedy</a>
+      <a href="myweb/Type/all">ALL</a>
+      <a href="myweb/Type/Emotion">Emotion</a>
+      <a href="myweb/Type/Short">Short Story</a>
+      <a href="myweb/Type/Exper">Experience</a>
+      <a href="myweb/Type/Love">Love</a>
+      <a href="myweb/Type/Com">Comedy</a>
     </div>
   </div>
   <script>

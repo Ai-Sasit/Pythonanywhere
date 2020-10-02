@@ -7,13 +7,24 @@ ALL_Username = []
 ALL_Password = []
 ALL_Email = []
 ALL_Author = []
-Author_status = True
-Writer_button = False
+Author_status = bool()
+Writer_button = bool()
+Story_Type = None
+search_key = None
 
 def index(req):
     global Writer_button
     global Author_status
-    G = StoryElements.objects.all().order_by('-Date_Created')
+    global search_key
+    global Story_Type
+    if Story_Type is not None:
+        G = StoryElements.objects.filter(Story_Type = Story_Type).order_by('-Date_Created')
+        Story_Type = None
+    elif search_key is not None:
+        G = StoryElements.objects.filter(StoryName__contains=search_key).order_by('-Date_Created')
+        search_key = None
+    else:
+        G = StoryElements.objects.all().order_by('-Date_Created')
     if req.user.is_superuser:
         return render(req, r'myweb/AdminLogin.html', {'Story':G})
     elif req.user.is_authenticated:
@@ -63,7 +74,7 @@ def log_in(req):
                 return redirect("/")
         else:
 
-            return render(req,r"myweb/Login.html",{"Feil":"Username or Password is incorrect"})
+            return render(req,r"myweb/login.html",{"Feil":"Username or Password is incorrect"})
 
 def log_out(req):
     logout(req)
@@ -120,14 +131,13 @@ def AuthorX(req):
         return redirect('/')
 
 def Writing(req):
-    G = GroupManager.objects.all()
+    global Author_status
     global Writer_button
-    Writer_button = True
     try:
         Writer.objects.get(GID = GroupManager.objects.get(User=req.user.id))
         return render(req,r"myweb/Writer.html")
     except:
-        global Author_status
+        Writer_button = True
         Author_status = False
         return redirect('/')
 
@@ -154,3 +164,18 @@ def Reading(req,index):
     DateStory = SE[0].AutoDate
     ContentStory = S[0].Story_Article
     return render(req,r"myweb/Read.html",{"Title_Name":f"{NameStory}","Date":f"{DateStory}","Content":f"{ContentStory}"})
+
+def Type(req,type_select):
+    global Story_Type
+    if type_select =='Emotion': Story_Type = "Emotion"
+    elif type_select == "Short": Story_Type = "Short"
+    elif type_select == "Exper": Story_Type = "Experience"
+    elif type_select == "Love": Story_Type = "Love"
+    elif type_select == "Com": Story_Type = "Comedy"
+    else: Story_Type = None
+    return redirect('/')
+
+def Search(req):
+    global search_key
+    if req.method =="POST": search_key = req.POST.get("Key")
+    return redirect("/")
