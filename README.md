@@ -1,5 +1,5 @@
 # Pythonanywhere
-## Project Descriptiob
+## Project Description
   - Python Web Django Learning
 ## How to run!
 ```
