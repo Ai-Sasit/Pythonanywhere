@@ -12,7 +12,7 @@ python manage.py migrate
 ```
 python manage.py createsuperuser
 ```
-  - To Start server
+  - To start server
 ```
 python manage.py runserver
 ```
